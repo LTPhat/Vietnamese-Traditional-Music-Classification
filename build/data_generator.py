@@ -1,32 +1,22 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import tensorflow as tf
-from sklearn.metrics import confusion_matrix
-import seaborn as sns
-from keras.preprocessing import image
-from tensorflow.keras.models import load_model
-from tensorflow.keras.utils import plot_model
-from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras.preprocessing.image import img_to_array, load_img
+
+
 
 import sys
 sys.path.append('\VN-music-classification')  # Add parent directory to import varibles from config.py
 from config import *
 
-
-# Define train/test/val directory
-
-train_dir = DATASET_ROOT + "\\" + "train"
-val_dir = DATASET_ROOT + "\\" + "val"
-test_dir = DATASET_ROOT + "\\" + "test"
-
+# train_dir = TRAIN_ROOT
+# val_dir = VAL_ROOT
+# test_dir = TEST_ROOT
 
 
 def generate_data(train_dir, val_dir, test_dir, aug = False):
     """
     Generate train/val/test from datagen.flow_from_directory
+    aug = False -> Create normal data. Otherwise, create real-time augmented data
     Return 
     """
     if not aug:
@@ -72,7 +62,7 @@ def generate_data(train_dir, val_dir, test_dir, aug = False):
             target_size= INPUT_SHAPE,
         )
 
-    return train_generator, val_generator, test_datagen
+    return train_generator, val_generator, test_generator
 
 
 
