@@ -11,13 +11,18 @@ from utils import *
 
 
 class Preprocessing():
-    def __init__(self, root, samples, type_index):
-        self.root = root            # Directory of folder
-        self.samples = samples      # Dictionary store information of each class folder
-        self.type_index = type_index
+    def __init__(self, root, save_root, dataset_root, train_root, val_root, test_root, samples, type_index, num_of_samples):
+        self.root = root                            # Directory of folder
+        self.save_root = save_root                  # Directory of folder saving mel-spec images
+        self.dataset_root = dataset_root            # Directory to save dataset
+        self.train_root = train_root                # Directory of trainset
+        self.val_root = val_root                    # Directory of valset
+        self.test_root = test_root                  # Directory of test_root
+        self.samples = samples                      # Dictionary store information of each class folder
+        self.type_index = type_index                # Class index
+        self.num_of_samples = num_of_samples        # Num of samples in class to process
 
-
-    def _load_dir_samples(self, num_of_samples, mode):
+    def _load_dir_samples(self, mode):
         """
         Load directory into 'samples' dictionary
         - Random: Load random dir
@@ -33,7 +38,7 @@ class Preprocessing():
             elif 10 <= index < 100:
                 index = "0" +str(index)
             return index
-        for i in range(0, num_of_samples):
+        for i in range(0, self.num_of_samples):
             if mode == "random": # Mode load random samples
                 random_index = np.random.randint(0, 500)
                 index = random_index
@@ -89,7 +94,7 @@ class Preprocessing():
             self.samples[index]["mel-spec-db"] = S_db
         return self.samples
 
-    def _save_mel_spec(self, save_root):
+    def _save_mel_spec(self):
         """
         Save log-mel-spec
         After running, images of a class will be saved in : root/class/file_name.png
@@ -97,16 +102,72 @@ class Preprocessing():
 
         for _, item in self.samples.items():
             S_db = item["mel-spec-db"]
-            folder_root = save_root + "\\" + type_list[self.type_index][0]
-            print(folder_root)
-            if not os.path.exists(folder_root):
-                os.makedirs(folder_root)
-                print("Makedir")
+            images_root = self.save_root + "\\" + type_list[self.type_index][0]
+            if not os.path.exists(images_root):
+                os.makedirs(images_root)
+                print("Create new root: {}".format(images_root))
             # Get file name from fir
             file_name = item["dir"].split("\\")[-1][:-4]
-            plt.imsave(folder_root + "\\{}".format(file_name) + ".png", S_db)
+            plt.imsave(images_root + "\\{}".format(file_name) + ".png", S_db)
+            print("Saved {}".format(images_root + "\\{}".format(file_name) + ".png"))
 
 
 
+# --------------OUTSIDE CLASS-------------------------------
+
+def end_to_end_process(raw_root, save_root, dataset_root, train_root, val_root, test_root, type_index, num_of_samples):
+    """
+    End to end process from raw audio to train/val/test split
+    Input:
+    - raw_root: Directory of raw data
+    - save_root: Directory to save mel-images
+    - dataset_root: Directory to save dataset
+    - train_root: Directory to save train set
+    - val_root: Directory to save val set
+    - test_root: Directory to save test set
+    - type_index: Class index
+    - num_of_samples: Num of samples of each class to train (Train all the raw audio -> 500)
+    """
+    class_samples = Preprocessing(root=raw_root, save_root=save_root, dataset_root=dataset_root, 
+                                  train_root=train_root, val_root=val_root, test_root=test_root, samples={}, 
+                                  type_index=type_index, num_of_samples=num_of_samples)
+    class_samples._load_dir_samples(mode = "all")
+    class_samples._load_samples()
+    class_samples._get_fft(n_fft=N_FFT, hop_length=HOP_LENGTH)
+    class_samples._get_mel_spectrogram(sr=SR)
+    class_samples._save_mel_spec()
+    train_val_test_split(folder_root=save_root, dataset_root= dataset_root, type_index= type_index)
+    return 
 
 
+if __name__ == "__main__":
+
+# -----------END-TO-END PROCESS EACH CLASS---------------------------------
+
+    end_to_end_process(raw_root=RAW_ROOT, save_root=FOLDER_ROOT, dataset_root=DATASET_ROOT, 
+                            train_root=TRAIN_ROOT, val_root=VAL_ROOT, test_root=TEST_ROOT, 
+                            type_index=0, 
+                            num_of_samples=20)
+    
+
+    end_to_end_process(raw_root=RAW_ROOT, save_root=FOLDER_ROOT, dataset_root=DATASET_ROOT, 
+                            train_root=TRAIN_ROOT, val_root=VAL_ROOT, test_root=TEST_ROOT, 
+                            type_index=1, 
+                            num_of_samples=20)
+
+    end_to_end_process(raw_root=RAW_ROOT, save_root=FOLDER_ROOT, dataset_root=DATASET_ROOT, 
+                            train_root=TRAIN_ROOT, val_root=VAL_ROOT, test_root=TEST_ROOT, 
+                            type_index=2, 
+                            num_of_samples=20)
+    
+
+    end_to_end_process(raw_root=RAW_ROOT, save_root=FOLDER_ROOT, dataset_root=DATASET_ROOT, 
+                            train_root=TRAIN_ROOT, val_root=VAL_ROOT, test_root=TEST_ROOT, 
+                            type_index=3, 
+                            num_of_samples=20)
+    
+
+    end_to_end_process(raw_root=RAW_ROOT, save_root=FOLDER_ROOT, dataset_root=DATASET_ROOT, 
+                            train_root=TRAIN_ROOT, val_root=VAL_ROOT, test_root=TEST_ROOT, 
+                            type_index=4, 
+                            num_of_samples=20)
