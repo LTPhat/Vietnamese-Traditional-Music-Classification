@@ -126,7 +126,7 @@ def plot_result(history):
 
 def predict(file_names, labels, class_list, typeset, model):
     """
-    Predict samples in a set (val/test set)
+    Predict samples in a set (val/test set) (just .wav)
     Input: 
     - file_name: files directory (got from val(test)_generator.filenames)
     - labels: labels respective to file_name (got from val(test)_generator.labels)
@@ -216,7 +216,7 @@ def predict_new30s(audio_dir, model, save_dir = TEST_IMAGES_ROOT):
     
 
 
-def predict_new(audio_dir, model, save_dir, unit_length = 661500):
+def predict_new(audio_dir, src_folder, model, save_dir, unit_length = 661500):
     """
     Predict audio of any length
     Split each audio into several equal samples which length = unit_length (661500 = 30s), then feed to NN
@@ -224,6 +224,7 @@ def predict_new(audio_dir, model, save_dir, unit_length = 661500):
 
     Input:
     - audio_dir: List of audio directory to predict
+    - src_folder: Dir of folder containning audio_dir
     - model: Model to predict
     - save_dir: Directory to save log-mel-spec image of samples splitted from each audio in audio_dir
     Output:
@@ -254,6 +255,7 @@ def predict_new(audio_dir, model, save_dir, unit_length = 661500):
         Output:
         - np.array(samples_db_list): A batch of samples of each audio file (nums_of_sample, input_shape[0], input_shape[1], 3) to feed to NN
         """
+        
         samples_db_list = []
         for i, sample in enumerate(samples_split):
             S = lb.feature.melspectrogram(y = sample, sr=sr)
@@ -264,7 +266,7 @@ def predict_new(audio_dir, model, save_dir, unit_length = 661500):
             plt.imsave(sample_root, S_db)
             image = load_img(sample_root, target_size=(INPUT_SHAPE[0], INPUT_SHAPE[1], 3))
             img_array = img_to_array(image)
-            img_array = img_array / 255
+            img_array = img_array * 1./ 255
             samples_db_list.append(img_array)
             if not is_saved: # Not save mode
                 for file in os.listdir(save_dir):
@@ -282,11 +284,10 @@ def predict_new(audio_dir, model, save_dir, unit_length = 661500):
 
     for dir in audio_dir:
         if dir.endswith(".mp3"):
-            # Get file name
-            wav_dir = TEST_AUDIO_PATH + "\\" + dir.split("/")[-1][:-4] + ".wav"
+            print("Convert {}.mp3 to .wav".format(dir))
+            wav_dir = src_folder + "\\" + dir.split("\\")[-1][:-4] + ".wav"    # src_folder = TEST_AUDIO_PATH (trainning), AUDIO_FROM_USER (web)
             mp3_2_wav(dir, wav_dir)
             dir = wav_dir       # Take wav dir for sampling
-
         audio, sr = lb.load(dir)
         if (len(audio) >= unit_length):
             # Number of sample of each audio
@@ -319,3 +320,6 @@ def predict_new(audio_dir, model, save_dir, unit_length = 661500):
         samples_split = []
 
     return y_pred_index, y_pred_class
+
+
+# INSTALL FFMPEG TO USE AUDIO PYDUB***************************************
