@@ -1,4 +1,5 @@
-# Define directories 
+
+# Define directories
 RAW_ROOT = 'rawdata'
 FOLDER_ROOT = "mel-images"
 DATASET_ROOT = "dataset"
@@ -10,6 +11,20 @@ SAVED_MODEL_PATH = 'model'
 TEST_AUDIO_PATH = "test_audio"
 TEST_IMAGES_ROOT = "test_images"    # Store mel-spec img of new audio to predict
 AUDIO_FROM_USER = "audio_from_user" # Store audio uploaded from user in app
+
+
+# For testing create these below folders
+# RAW_ROOT = 'rawdata'
+# FOLDER_ROOT = "check_mel-images"
+# DATASET_ROOT = "check_dataset"
+# TRAIN_ROOT = "check_dataset\\train"
+# VAL_ROOT = "check_dataset\\val"
+# TEST_ROOT = "check_dataset\\test"
+# CHECKPOINT_FILEPATH = 'check_checkpoint'
+# SAVED_MODEL_PATH = 'check_model'
+# TEST_AUDIO_PATH = "test_audio"
+# TEST_IMAGES_ROOT = "test_images"    # Store mel-spec img of new audio to predict
+# AUDIO_FROM_USER = "audio_from_user" # Store audio uploaded from user in app
 
 
 # Define global variable
@@ -36,8 +51,6 @@ TEST_RATE = 0.1
 N_CLASS = 5
 INPUT_SHAPE = (128, 1292)
 
-
-
 # Data augmentation configs
 RESCALE = 1./255
 WIDTH_SHIFT_RANGE = 0.05
@@ -55,10 +68,11 @@ VERBOSE = 1
 EARLY_MONITOR = "loss"
 
 
+
 # Model config
 OPTIMIZER = "adam"  # rmsrop, sgd
 METRICS = ["accuracy"]   # tf.Metrics.Precision(), #tf.Metrics.Recall
 LOSS ='categorical_crossentropy' # ...
 BATCH_SIZE = 32
-EPOCHS = 20
+EPOCHS = 5
 VALIDATION_BATCH_SIZE = 32
