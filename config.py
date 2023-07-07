@@ -9,12 +9,12 @@ CHECKPOINT_FILEPATH = 'checkpoint'
 SAVED_MODEL_PATH = 'model'
 TEST_AUDIO_PATH = "test_audio"
 TEST_IMAGES_ROOT = "test_images"    # Store mel-spec img of new audio to predict
-
+AUDIO_FROM_USER = "audio_from_user" # Store audio uploaded from user in app
 
 
 # Define global variable
 type_list = {0: ["cailuong", "CaiLuong"], 1: ["catru", "Catru"], 2:["chauvan", "Chauvan"], 3: ["cheo", "Cheo"], 4: ["hatxam", "Xam"]}
-class_list = {0: "cailuong", 1: "catru", 2:"chauvan", 3: "cheo", 4: "hatxam"}
+class_list = {0: "Cải lương", 1: "Ca trù", 2:"Chầu văn", 3: "Chèo", 4: "Hát xẩm"}
 
 
 
