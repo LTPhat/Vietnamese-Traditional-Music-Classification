@@ -66,6 +66,7 @@ def main():
     unsafe_allow_html=True
     )
     st.markdown(request_style, unsafe_allow_html=True)
+    st.markdown(result_style, unsafe_allow_html=True)
     title  = """
     <h1 class = "title" >Vietnamese Traditional Music Classifier</h1>
     </div>

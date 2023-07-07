@@ -34,7 +34,7 @@ title_style = """
     <style>
     .title {
         display: inline;
-        color: black;
+        color: red;
         text-align: center;
         font-size: 53px; 
         font-family: 'Brush Script MT', cursive;
@@ -54,23 +54,12 @@ request_style = """
 """
 result_style = """
     <style>
-    .request {
-        background-color: #fff;
-        border-radius: 6px;
-        min-height: 80px;
-        --shadow: 1px 1px 1px 1px rgb(0 0 0 / 0.25);
-        box-shadow: var(--shadow);
-        display: flex;
-        margin: 0px;
-        padding: 0px;
-        border-radius: 25px;
-        box-sizing: border-box;
-        justify-content: center;
+    .result{
+        display: inline;
+        color: black;
         text-align: center;
+        font-size: 40px;
         font-family: 'Brush Script MT', cursive;
-        align-items: center;
-        color: transparent;
-        background-image: linear-gradient(115deg, #26940a, #162b10);
     }
     </style>
 """
