@@ -110,12 +110,3 @@ class Preprocessing():
 
 
 
-five_samples = Preprocessing(RAW_ROOT, {}, 0)
-print(five_samples._load_dir_samples(num_of_samples = 5, mode ="random"))
-print(five_samples._load_samples())
-print(five_samples._get_fft(N_FFT, HOP_LENGTH))
-print(five_samples._get_mel_spectrogram(SR))
-five_samples._save_mel_spec("test_save_images") # Change to "mel-images" FOLDER_ROOT
-print("done")
-
-
