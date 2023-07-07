@@ -284,7 +284,7 @@ def predict_new(audio_dir, src_folder, model, save_dir, unit_length = 661500):
 
     for dir in audio_dir:
         if dir.endswith(".mp3"):
-            print("Convert {}.mp3 to .wav".format(dir))
+            print("Convert {} to .wav".format(dir))
             wav_dir = src_folder + "\\" + dir.split("\\")[-1][:-4] + ".wav"    # src_folder = TEST_AUDIO_PATH (trainning), AUDIO_FROM_USER (web)
             mp3_2_wav(dir, wav_dir)
             dir = wav_dir       # Take wav dir for sampling
