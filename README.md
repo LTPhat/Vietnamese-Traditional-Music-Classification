@@ -102,5 +102,8 @@ seaborn
 ```
 
 - Config your own parameters in ``config.py``. Directory configs are available and compatible with the project's folder structure. Hence, it's not recommended to change them.
+
 - Run  ``processing.py``. After running, ``mel-images`` folder contains all the mel-spectrogram images extracted from 5 class and ``dataset`` folder contains train/val/test folder of images of 5 class. Constructing the dataset is completed.
-- 
+
+- At ``build/train_model.py``, change the model_index to 1, 2, 3 at the last line to train model1, model2 or model3. Then, run this file.
+After running, the best model ``.h5`` file will be saved at ``model\``
