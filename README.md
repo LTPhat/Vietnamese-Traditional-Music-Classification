@@ -49,7 +49,9 @@ The project's workflow is illustrated in the figure below:
 ### a) Audio feature extraction
 Audio feature extraction is a necessary step in audio signal processing, which is a subfield of signal processing. Different features capture different aspects of sound. Here are some signal domain features.
 - ``Time domain:`` These are extracted from waveforms of the raw audio: Zero crossing rate, amplitude envelope, RMS energy ...
+
 - ``Frequency domain:`` Signals are generally converted from the time domain to the frequency domain using the Fourier Transform: Band energy ratio, spectral centroid, spectral flux ...
+
 - ``Time-frequency representation:`` The time-frequency representation is obtained by applying the Short-Time Fourier Transform (STFT) on the time domain waveform: Spectrogram, Mel-spectrogram, constant-Q transform...
 
 In this repo, we extract Mel-spectrogram images from audios of the dataset and feed them to CNN model as an image classification task.
@@ -100,10 +102,41 @@ pydub
 sklearn
 seaborn
 ```
-
+- ``Note!`` In order to avoid errors at local when using pydub.AudioSegment, it's better to download ``ffmpeg`` and add them to environment variables. Tutorial here: https://phoenixnap.com/kb/ffmpeg-windows
 - Config your own parameters in ``config.py``. Directory configs are available and compatible with the project's folder structure. Hence, it's not recommended to change them.
 
 - Run  ``processing.py``. After running, ``mel-images`` folder contains all the mel-spectrogram images extracted from 5 class and ``dataset`` folder contains train/val/test folder of images of 5 class. Constructing the dataset is completed.
 
 - At ``build/train_model.py``, change the model_index to 1, 2, 3 at the last line to train model1, model2 or model3. Then, run this file.
-After running, the best model ``.h5`` file will be saved at ``model\``
+After running, the best model ``.h5`` file will be saved at ``model`` folder. Training is completed.
+
+- Run Streamlit app at ``app/app.py``, upload your new audios and get prediction. The audios uploaded on app will be saved at ``audio_from_user`` folder. Run app using this command:
+
+```sh
+streamlit run app/app.py
+```
+
+## Some images
+
+![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/app/images/app.png)
+
+
+![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/app/images/predict.png)
+
+
+## References
+
+[1] Vietnam Traditional Music (5 genres), https://www.kaggle.com/datasets/homata123/vntm-for-building-model-5-genres.
+
+[2] Librosa Library, https://librosa.org/doc/latest/index.html
+
+[3] TensorFlow, https://www.tensorflow.org/
+
+[4] CHU BA THANH, TRINH VAN LOAN, DAO THI LE THUY, _AUTOMATIC IDENTIFICATION OF SOME VIETNAMESE FOLK
+SONGS CHEO AND QUANHO USING DEEP NEURAL NETWORKS_, https://vjs.ac.vn/index.php/jcc/article/view/15961
+
+[5] Valerio Velardo - The Sound of AI, https://www.youtube.com/@ValerioVelardoTheSoundofAI
+
+[6] Dipti Joshi1, Jyoti Pareek, Pushkar Ambatkar, _Comparative Study of Mfcc and Mel Spectrogram for Raga Classification Using CNN_, https://indjst.org/articles/comparative-study-of-mfcc-and-mel-spectrogram-for-raga-classification-using-cnn
+
+[7] Loris Nanni et al, _Ensemble of convolutional neural networks to improve animal audio classification_, https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-020-00175-3
