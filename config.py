@@ -1,3 +1,4 @@
+import os
 
 # Define directories
 RAW_ROOT = 'rawdata'
@@ -50,6 +51,14 @@ TEST_RATE = 0.1
 # Input/ Output
 N_CLASS = 5
 INPUT_SHAPE = (128, 1292)
+
+# Num of samples of each class
+NUM_OF_CAILUONG = len(os.listdir(os.path.join(RAW_ROOT, "cailuong")))
+NUM_OF_CATRU = len(os.listdir(os.path.join(RAW_ROOT, "catru")))
+NUM_OF_CHAUVAN = len(os.listdir(os.path.join(RAW_ROOT, "chauvan")))
+NUM_OF_CHEO = len(os.listdir(os.path.join(RAW_ROOT, "cheo")))
+NUM_OF_HATXAM = len(os.listdir(os.path.join(RAW_ROOT, "hatxam")))
+
 
 # Data augmentation configs
 RESCALE = 1./255
