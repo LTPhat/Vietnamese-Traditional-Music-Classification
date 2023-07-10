@@ -85,3 +85,8 @@ LOSS ='categorical_crossentropy' # ...
 BATCH_SIZE = 32
 EPOCHS = 5
 VALIDATION_BATCH_SIZE = 32
+
+
+# EXCEL URL
+
+EXCEL_URL = "app/user_input.xlsx"
