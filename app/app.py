@@ -101,12 +101,17 @@ def main():
     uploaded_file = st.file_uploader("", type=["mp3", "wav"], accept_multiple_files = True,)
     audio_dirs = process_audio_user(uploaded_files=uploaded_file)
     if st.button("Classify"):
-        
+        filenames = [file.name for file in uploaded_file]
         y_pred, y_class = predict_new(audio_dir=audio_dirs, src_folder = AUDIO_FROM_USER, model=model2, save_dir=FOLDER_ROOT)
         for i, file in zip(range(0, len(y_pred)), audio_dirs):
             st.success("File uploaded {}: {} --> PREDICT: {}".format(i, file.split("\\")[-1], y_class[i]))
         st.markdown(endding, unsafe_allow_html=True)
-
+        # Read excel_file
+        list_data = pd.read_excel(EXCEL_URL, index_col=0)
+        # Add new prediction 
+        new_input = create_data_input(filename_list=filenames, label_list=y_class, list_data=list_data, index_previous=len(list_data) - 1)
+        # Save new prediction
+        save_prediction(EXCEL_URL, list_data, new_input)
 
 if __name__=='__main__':
     set_background('background/bg4.webp')
