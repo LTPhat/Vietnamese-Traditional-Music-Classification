@@ -44,7 +44,7 @@
 ## Workflow
 The project's workflow is illustrated in the figure below:
 
-![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/train_phase2.png)
+![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/train_phase3.png)
 
 ### a) Audio feature extraction
 Audio feature extraction is a necessary step in audio signal processing, which is a subfield of signal processing. Different features capture different aspects of sound. Here are some signal domain features.
@@ -88,6 +88,13 @@ test_set: loss: 0.4261 - accuracy: 0.9000 - precision_1: 0.9032 - recall_1: 0.89
 val_set: loss: 0.3558 - accuracy: 0.9093 - precision_1: 0.9212 - recall_1: 0.9040
 test_set: loss: 0.2625 - accuracy: 0.9320 - precision_1: 0.9357 - recall_1: 0.9320
 ```
+## Ensemble
+
+In the inference phase, we propose to use late fusion of probabilities, referred to as PROD fusion. Consider predicted probabilities of each model as $\boldsymbol{P_s} = [p_{s1}, p_{s2}, ..., p_{sC}]$  where $C$ is the number of classes and the $s^{th}$  out of  networks evaluated. The predicted probabilities after PROD fusion is obtained by:
+
+$$\boldsymbol{P_{prod}}=[p_1, p_2, ..., p_C], p_i=\frac{1}{S}{\displaystyle \prod_{s=1}^{S}  p_{si}}, 1 \le i \le C$$
+
+Finally, the predicted label $\hat{y}$ is determined by: $\hat{y}=\arg \max{\boldsymbol{P_{prod}}}$
 
 ## Tutorial
 
