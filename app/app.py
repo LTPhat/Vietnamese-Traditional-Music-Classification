@@ -25,8 +25,14 @@ st.set_page_config(
 
 
 # Define model
+model1 = tf.keras.models.load_model("model/best_model1.h5", compile=False)
+model1.compile(loss = LOSS, optimizer = OPTIMIZER, metrics=[METRICS[0]])
+
 model2 = tf.keras.models.load_model("model/best_model2.h5", compile=False)
 model2.compile(loss = LOSS, optimizer = OPTIMIZER, metrics=[METRICS[0]])
+
+model3 = tf.keras.models.load_model("model/best_model3_ver2.h5", compile=False)
+model3.compile(loss = LOSS, optimizer = OPTIMIZER, metrics=[METRICS[0]])
 
 
 def process_audio_user(uploaded_files):
@@ -102,7 +108,10 @@ def main():
     audio_dirs = process_audio_user(uploaded_files=uploaded_file)
     if st.button("Classify"):
         filenames = [file.name for file in uploaded_file]
-        y_pred, y_class = predict_new(audio_dir=audio_dirs, src_folder = AUDIO_FROM_USER, model=model2, save_dir=FOLDER_ROOT)
+        # Predict with PROD fusion
+        y_pred, y_class = PROD_predict(audio_dir = audio_dirs, src_folder = AUDIO_FROM_USER, model1=model1, model2=model2, model3 = model3,  save_dir=FOLDER_ROOT)
+        # Predict with just one model
+        # y_pred, y_class = predict_new(audio_dir = audio_dirs, src_folder = AUDIO_FROM_USER, model=model2, save_dir=FOLDER_ROOT)
         for i, file in zip(range(0, len(y_pred)), audio_dirs):
             st.success("File uploaded {}: {} --> PREDICT: {}".format(i, file.split("\\")[-1], y_class[i]))
         st.markdown(endding, unsafe_allow_html=True)
