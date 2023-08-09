@@ -60,34 +60,19 @@ In this repo, we extract Mel-spectrogram images from audios of the dataset and f
 We propose 3 models using the extracted mel-spectrogram as input images. With each image, the output vector gives the probability of 5 class.
 #### Model 1
 
-![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/model1/model1.png)
+![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/model1/model1_art.png)
 
-> Evaluation:
-
-```sh
-val_set: loss: 0.4680 - accuracy: 0.8960 - precision: 0.8954 - recall: 0.8907
-test_set: loss: 0.4514 - accuracy: 0.8840 - precision: 0.8984 - recall: 0.8840
-```
 
 #### Model 2
 
-![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/model2/model2.png)
+![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/model2/model2_art.png)
 
-> Evaluation:
-
-```sh
-val_set: loss: 0.6250 - accuracy: 0.8720 - precision_1: 0.8767 - recall_1: 0.8720
-test_set: loss: 0.4261 - accuracy: 0.9000 - precision_1: 0.9032 - recall_1: 0.8960
-```
 
 #### Model 3
 
-![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/model3/model3.png)
+![Alt text](https://github.com/LTPhat/Vietnamese-Traditional-Music-Classification/blob/main/model_images/model3/model3_art.png)
 
-```sh
-val_set: loss: 0.3558 - accuracy: 0.9093 - precision_1: 0.9212 - recall_1: 0.9040
-test_set: loss: 0.2625 - accuracy: 0.9320 - precision_1: 0.9357 - recall_1: 0.9320
-```
+
 ## Ensemble
 
 In the inference phase, we propose to use late fusion of probabilities, referred to as PROD fusion. Consider predicted probabilities of each model as $\boldsymbol{P_s} = [p_{s1}, p_{s2}, ..., p_{sC}]$  where $C$ is the number of classes and the $s^{th}$  out of  networks evaluated. The predicted probabilities after PROD fusion is obtained by:
